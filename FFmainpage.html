@@ -39,11 +39,12 @@
 </head>
 
 <body>
+    <div class="container">
     <center>
         <!--webpage contents-->
         <h1>FriendFind</h1>
-        <form action="connect.php" method="post">
-            <p>Name:</p>
+        <form action="/post" method="post">
+            <label for="name">Name:</label><br><br>
             <input type="text" placeholder="Enter Name Here:" id="name" name="name" required>
 
             <div class="dropdown">
@@ -95,6 +96,7 @@
             <button type="submit">Submit</button>
         </form>
     </center>
+    </div> 
 </body>
 
 </html>
