@@ -1,0 +1,72 @@
+#name {
+    font-size: 18px;
+    width: 15%;               
+    margin: 11px auto;
+    display: block;     
+}
+
+#pronoun {
+    font-size: 17px;
+    margin: 12px auto;
+    padding-bottom: 10px;
+    display: block;             
+}
+
+#interest1 {
+    display: inline-block;              
+    margin: 10 auto;              
+    width: 20%;                  
+}
+#interest2 {
+    display: inline-block;              
+    margin: 10 auto;              
+    width: 20%;                  
+}
+
+#interest3 {
+    display: block;              
+    margin: 10 auto;              
+    width: 20%;
+}
+
+body {
+    background-color: #FF7F50;
+    font-family: Arial, sans-serif; 
+}
+
+Name{
+    font-size: 20px;
+}
+
+h1 {
+    color: white;
+    font-size: 65px;
+    margin: 0; 
+    padding-bottom: 8px; 
+}
+
+p {
+    margin: 0;
+    padding: 0;
+}
+
+input[type="text"], select {
+    padding: 10px;
+    margin: 5px 0;
+    font-size: 16px;
+}
+
+
+button {
+    padding: 10px 20px;
+    margin: 7px;
+    background-color: white;
+    border: none;
+    cursor: pointer;
+    color: black;
+    font-size: 20px;
+}
+
+button:hover {
+    background-color: white;
+}
