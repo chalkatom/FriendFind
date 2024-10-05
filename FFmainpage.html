@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>FriendFind</title>
+
+    <script>
+        //handle disabling options in other dropdowns
+        function disableOptions() {
+            const allSelects = document.querySelectorAll('select');
+
+            //get all selected values
+            const selectedValues = Array.from(allSelects).map(select => select.value);
+
+            //loop through each select and disable the selected options in other selects
+            allSelects.forEach(select => {
+                const options = select.querySelectorAll('option');
+                options.forEach(option => {
+                    if (selectedValues.includes(option.value) && option.value !== select.value) {
+                        option.disabled = true;
+                    } else {
+                        option.disabled = false;
+                    }
+                });
+            });
+        }
+
+        window.onload = function () {
+            //attach onchange event to each select element
+            const selects = document.querySelectorAll('select');
+            selects.forEach(select => {
+                select.addEventListener('change', disableOptions);
+            });
+
+            //initially run the function to handle any pre-selected values
+            disableOptions();
+        }
+    </script>
+</head>
+
+<body>
+    <center>
+        <!--webpage contents-->
+        <h1>FriendFind</h1>
+        <form action="connect.php" method="post">
+            <p>Name:</p>
+            <input type="text" placeholder="Enter Name Here:" id="name" name="name" required>
+
+            <div class="dropdown">
+                <p>Pronouns:</p>
+                <div class="styled-select">
+                    <select name="pronoun" id="pronoun" required>
+                        <option value="" disabled selected>Choose Your Pronouns</option>
+                        <option value="he/him">he/him</option>
+                        <option value="she/her">she/her</option>
+                        <option value="they/them">they/them</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <p>Interests:</p>
+                <select name="interest1" id="interest1" required>
+                    <option value="" disabled selected>Choose Your First Interest</option>
+                    <option value="Movies">Movies</option>
+                    <option value="TV">TV</option>
+                    <option value="Video Games">Video Games</option>
+                    <option value="Books">Books</option>
+                    <option value="Music">Music</option>
+                    <option value="Travel">Travel</option>
+                    <option value="Cooking">Cooking</option>
+                </select><br><br>
+                <select name="interest2" id="interest2" required>
+                    <option value="" disabled selected>Choose Your Second Interest</option>
+                    <option value="Movies">Movies</option>
+                    <option value="TV">TV</option>
+                    <option value="Video Games">Video Games</option>
+                    <option value="Books">Books</option>
+                    <option value="Music">Music</option>
+                    <option value="Travel">Travel</option>
+                    <option value="Cooking">Cooking</option>
+                </select><br><br>
+                <select name="interest3" id="interest3" required>
+                    <option value="" disabled selected>Choose Your Third Interest</option>
+                    <option value="Movies">Movies</option>
+                    <option value="TV">TV</option>
+                    <option value="Video Games">Video Games</option>
+                    <option value="Books">Books</option>
+                    <option value="Music">Music</option>
+                    <option value="Travel">Travel</option>
+                    <option value="Cooking">Cooking</option>
+                </select>
+            </div>
+            <br>
+            <button type="submit">Submit</button>
+        </form>
+    </center>
+</body>
+
+</html>
