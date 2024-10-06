@@ -144,6 +144,8 @@ app.get('/showuser', async (req, res) => {
         // Find random user (excluding the current user)
         const otherUsers = await Users.find({ _id: { $ne: currentUserId } }); // Ensure this line is here
         const randomUser = otherUsers[Math.floor(Math.random() * otherUsers.length)];
+        const otherUserId = randomUser._id; 
+        req.session.otherUserId = otherUserId;
 
         // Render HTML page with loading screen, then show the user
         res.send(`
@@ -196,9 +198,6 @@ app.get('/question', (req, res) => {
     const wrongAnswer1 = req.query.wrongAnswer1;
     const wrongAnswer2 = req.query.wrongAnswer2;
     const wrongAnswer3 = req.query.wrongAnswer3;
-
-    // Save the otherUserId to the session
-    req.session.otherUserId = req.query.otherUserId;
 
     // Render the question page with dynamic data
     res.send(`
@@ -282,7 +281,10 @@ app.get('/question', (req, res) => {
 
 app.get('/correct-answer', async (req, res) => {
     const currentUserId = req.session.currentUserId;
-    const otherUserId = req.session.otherUserId; // Get from session
+    const otherUserId = req.session.otherUserId;
+
+    console.log("Current User ID:", currentUserId);
+    console.log("Other User ID:", otherUserId);
 
     try {
         await Users.findByIdAndUpdate(currentUserId, { $addToSet: { fR: otherUserId } });
@@ -341,7 +343,10 @@ app.get('/matchpage', (req, res) => {
             <center>
                 <h1>FriendFind</h1>
                 <h2>It's a Match!</h2>
-                <button onclick="window.location.href='/showuser'">Find Another Friend</button>
+                <h3>Join this user's chat room to start a conversation!</h3>
+                <a href="https://www.chatzy.com/52781656008329">
+                <button>Join!</button>
+                </a>
             </center>
             </body>
         </html>
