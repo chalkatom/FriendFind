@@ -8,7 +8,7 @@ app.use(express.static(__dirname));
 app.use(express.urlencoded({ extended: true }))
 
 
-mongoose.connect('mongodb+srv://adamchakour05:Adam4leena@friendfind.gxish.mongodb.net/FF_db', {
+mongoose.connect('mongodb+srv://adamchakour05:C5ygFeBcxpPDaNg2@ffcluster.8ojuf.mongodb.net/FFdb', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
@@ -18,15 +18,38 @@ db.once('open', () => {
 })
 
 const userSchema = new mongoose.Schema({
-    name:String,
-    pronoun:String,
-    enum: ['he/him', 'she/her', 'they/them'],
-    interest1:String,
-    enum: ['Movies', 'TV', 'Video Games', 'Books', 'Music', 'Travel', 'Cooking'],
-    interest2:String,
-    enum: ['Movies', 'TV', 'Video Games', 'Books', 'Music', 'Travel', 'Cooking'],
-    interest3:String,
-    enum: ['Movies', 'TV', 'Video Games', 'Books', 'Music', 'Travel', 'Cooking'],
+    name: String,
+    pronoun: {
+        type: String,
+        enum: ['he/him', 'she/her', 'they/them'],
+    },
+    interest1: {
+        type: String,
+        enum: ['Movies', 'TV', 'Video Games', 'Books', 'Music', 'Travel', 'Cooking'],
+    },
+    interest2: {
+        type: String,
+        enum: ['Movies', 'TV', 'Video Games', 'Books', 'Music', 'Travel', 'Cooking'],
+    },
+    interest3: {
+        type: String,
+        enum: ['Movies', 'TV', 'Video Games', 'Books', 'Music', 'Travel', 'Cooking'],
+    },
+    question1: { type: String, default: '' },
+    answer1: { type: String, default: '' },
+    wrong1a: { type: String, default: '' },
+    wrong1b: { type: String, default: '' },
+    wrong1c: { type: String, default: '' },
+    question2: { type: String, default: '' },
+    answer2: { type: String, default: '' },
+    wrong2a: { type: String, default: '' },
+    wrong2b: { type: String, default: '' },
+    wrong2c: { type: String, default: '' },
+    question3: { type: String, default: '' },
+    answer3: { type: String, default: '' },
+    wrong3a: { type: String, default: '' },
+    wrong3b: { type: String, default: '' },
+    wrong3c: { type: String, default: '' },
 });
 
 const Users = mongoose.model("data", userSchema)
@@ -44,9 +67,14 @@ app.post('/post', async (req, res) => {
         interest2,
         interest3
     })
-    await user.save()
-    console.log(user)
-    res.send("Form Submission Successful")
+    try {
+        await user.save()
+        console.log(user)
+        res.send("Form Submission Successful")
+    } catch(error) {
+        console.log(error)
+        res.send("Form Submission Failed")
+    }
 })
 
 app.listen(port, () => {
