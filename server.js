@@ -55,7 +55,7 @@ const userSchema = new mongoose.Schema({
 const Users = mongoose.model("data", userSchema)
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'FFmainpage.html'))
+    res.sendFile(path.join(__dirname, 'index.html'))
 })
 
 app.post('/post', async (req, res) => {
