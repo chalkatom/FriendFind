@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FriendFind----All it take is a few sparks</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .answer, .user-response {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            display: none; /* Hide by default */
+        }
+    </style>
+</head>
+<body>
+
+    <h1>FriendFind----All it takes is a few sparks</h1>
+
+    <!-- Dropdown 1 -->
+    <div>
+        <label for="questionSelect1">Select your interests:</label>
+        <select id="questionSelect1" onchange="updateAnswer(1)">
+            <option value="">-- Choose a category --</option>
+            <option value="Movies">Movies</option>
+            <option value="TV">TV</option>
+            <option value="Video Games">Video Games</option>
+            <option value="Books">Books</option>
+            <option value="Music">Music</option>
+            <option value="Travel">Travel</option>
+            <option value="Cooking">Cooking</option>
+        </select>
+        <div id="answer1" class="answer"></div>
+        <div id="userResponse1" class="user-response">
+            <label for="irq1">An interest-related question</label>
+            <input type="text" id="irq1" required>
+            <label for="ca1">The answer:</label>
+            <input type="text" id="ca1" required>
+            <label for="wa1_1">A wrong answer:</label>
+            <input type="text" id="wa1_1" required>
+            <label for="wa1_2">Another wrong answer:</label>
+            <input type="text" id="wa_1_2" required>
+            <label for="wa1_3">Final wrong answer:</label>
+            <input type="text" id="wa1_3" required>
+
+        </div>
+    </div>
+
+    <!-- Dropdown 2 -->
+    <div>
+        <label for="questionSelect2">Select your interests:</label>
+        <select id="questionSelect2" onchange="updateAnswer(2)">
+            <option value="">-- Choose a category --</option>
+            <option value="Movies">Movies</option>
+            <option value="TV">TV</option>
+            <option value="Video Games">Video Games</option>
+            <option value="Books">Books</option>
+            <option value="Music">Music</option>
+            <option value="Travel">Travel</option>
+            <option value="Cooking">Cooking</option>
+        </select>
+        <div id="answer2" class="answer"></div>
+        <div id="userResponse2" class="user-response">
+            <label for="irq2">An interest-related question</label>
+            <input type="text" id="irq2" required>
+            <label for="ca2">The answer:</label>
+            <input type="text" id="ca2" required>
+            <label for="wa2_1">A wrong answer:</label>
+            <input type="text" id="wa2_1" required>
+            <label for="wa2_2">Another wrong answer:</label>
+            <input type="text" id="wa2_2" required>
+            <label for="wa2_3">Final wrong answer:</label>
+            <input type="text" id="wa2_3" required>
+        </div>
+    </div>
+
+    <!-- Dropdown 3 -->
+    <div>
+        <label for="questionSelect3">Select your interests:</label>
+        <select id="questionSelect3" onchange="updateAnswer(3)">
+            <option value="">-- Choose a category --</option>
+            <option value="Movies">Movies</option>
+            <option value="TV">TV</option>
+            <option value="Video Games">Video Games</option>
+            <option value="Books">Books</option>
+            <option value="Music">Music</option>
+            <option value="Travel">Travel</option>
+            <option value="Cooking">Cooking</option>
+        </select>
+        <div id="answer3" class="answer"></div>
+        <div id="userResponse3" class="user-response">
+            <label for="irq3">An interest-related question</label>
+            <input type="text" id="irq3" required>
+            <label for="ca3">The answer:</label>
+            <input type="text" id="ca3" required>
+            <label for="wa3_1">A wrong answer:</label>
+            <input type="text" id="wa3_1" required>
+            <label for="wa3_2">Another wrong answer:</label>
+            <input type="text" id="wa3_2" required>
+            <label for="wa3_3">Final wrong answer:</label>
+            <input type="text" id="wa3_3" required>
+        </div>
+    </div>
+
+    <button onclick="submitAllResponses()">Submit All Answers</button>
+    <div id="finalAnswers"></div>
+
+    <script>
+        // Keep track of selected categories
+        const selectedCategories = new Set();
+
+        function updateAnswer(dropdownNumber) {
+            const select = document.getElementById(`questionSelect${dropdownNumber}`);
+            const answerDiv = document.getElementById(`answer${dropdownNumber}`);
+            const userResponseDiv = document.getElementById(`userResponse${dropdownNumber}`);
+            const selectedValue = select.value;
+
+            // If a category is selected, disable that category in other dropdowns
+            if (selectedValue) {
+                selectedCategories.add(selectedValue);
+                disableOtherOptions(selectedValue);
+            }
+
+            let answerText = `You selected: ${selectedValue}`;
+            answerDiv.textContent = answerText; // Update the answer section
+            answerDiv.style.display = 'block'; // Show answer
+            userResponseDiv.style.display = 'block'; // Show user response area
+        }
+
+        function disableOtherOptions(selectedValue) {
+            const dropdowns = [
+                document.getElementById('questionSelect1'),
+                document.getElementById('questionSelect2'),
+                document.getElementById('questionSelect3')
+            ];
+
+            dropdowns.forEach(dropdown => {
+                const options = dropdown.options;
+                for (let i = 0; i < options.length; i++) {
+                    if (options[i].value === selectedValue) {
+                        options[i].disabled = true;
+                    } else {
+                        options[i].disabled = false; // Re-enable other options
+                        // If the option is already selected in another dropdown, disable it
+                        if (selectedCategories.has(options[i].value)) {
+                            options[i].disabled = true;
+                        }
+                    }
+                }
+            });
+        }
+
+        function submitAllResponses() {
+            const finalAnswersDiv = document.getElementById('finalAnswers');
+            finalAnswersDiv.innerHTML = ''; // Clear previous answers
+
+            for (let i = 1; i <= 3; i++) {
+                const userName = document.getElementById(`userName${i}`).value;
+                const userAge = document.getElementById(`userAge${i}`).value;
+                const userRace = document.getElementById(`userRace${i}`).value;
+                const userMaritalStatus = document.getElementById(`userMaritalStatus${i}`).value;
+                const selectedCategory = document.getElementById(`questionSelect${i}`).value;
+
+                if (userName && userAge && userRace && userMaritalStatus && selectedCategory) {
+                    finalAnswersDiv.innerHTML += `<p>Hello, ${userName}! You are ${userAge} years old, you identify as ${userRace}, your marital status is "${userMaritalStatus}", and you selected the category: "${selectedCategory}"</p>`;
+                }
+            }
+
+            if (finalAnswersDiv.innerHTML === '') {
+                finalAnswersDiv.innerHTML = '<p>Please ensure all fields are filled out.</p>';
+            }
+        }
+    </script>
+
+</body>
+</html>
